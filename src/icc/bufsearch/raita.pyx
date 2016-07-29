@@ -49,9 +49,9 @@ cdef class Raita:
     cdef unsigned int bmBc[256]
     cdef unsigned int rel_pos
     cdef int middle_pos
-    cdef char first_char
-    cdef char last_char
-    cdef char middle_char
+    cdef unsigned char first_char
+    cdef unsigned char last_char
+    cdef unsigned char middle_char
     cdef char * pattern
     cdef unsigned int multibuffer
     cdef unsigned int pattern_size
@@ -120,7 +120,7 @@ cdef class Raita:
 
     def search(self, buffer):
         cdef unsigned int buflen
-        cdef char c
+        cdef unsigned char c;
         cdef char * buf
         cdef char * _p
         cdef char * _b
@@ -136,8 +136,9 @@ cdef class Raita:
         poslist=[]
 
         if not self.multibuffer:
+            print("reset!")
             self.reset()
-
+        assert self.rel_pos==0
         buf = PyBytes_AsString(buffer)
         # while (self.rel_pos <= buflen-self.pattern_size):
         _p = self.pattern + 1;
@@ -151,6 +152,7 @@ cdef class Raita:
                 _b = buf + self.rel_pos + 1
                 if memcmp(_p, _b, self.pattern_size-1) == 0:
                     poslist.append(self.rel_pos)
+            assert c>=0 and c<=255
             self.rel_pos+=self.bmBc[c]
 
         # Here self.rel_pos > buflen - self.pattern_size

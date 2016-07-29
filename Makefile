@@ -8,7 +8,7 @@
 
 #A virtualenv name
 LPYTHON=python3
-V=/home/eugeneai/.pyenv/versions/tmp
+V=/root/python3
 VB=$(V)/bin
 PYTHON=$(VB)/$(LPYTHON)
 #PYTHON=python
