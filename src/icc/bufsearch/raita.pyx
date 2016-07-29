@@ -71,17 +71,23 @@ cdef class Raita:
     cdef preBmBc(self):
         cdef char * bytes
         cdef unsigned int size
+        cdef unsigned int size1
+        cdef unsigned int b[256]
 
         bytes = self.pattern
         size = self.pattern_size
+        size1 = size - 1
 
         for i in range(256):
             self.bmBc[i]=size
-        for i in range(size-1):
-            self.bmBc[bytes[i]]=size - i - 1;
+        for i in range(size1):
+            self.bmBc[bytes[i]]=size1 - i;
 
+        #for i in range(32):
+        #    b[i]=self.bmBc[i+97]
+        #print (b)
         self.first_char=bytes[0]
-        self.last_char=bytes[size-1]
+        self.last_char=bytes[size1]
         self.middle_pos=size // 2
         self.middle_char=bytes[self.middle_pos]
 
@@ -152,3 +158,7 @@ cdef class Raita:
         if len(poslist)==0:
             return None, "not found"
         return poslist, "found"
+
+    @property
+    def relative(self):
+        return self.rel_pos
