@@ -119,7 +119,7 @@ cdef class Raita:
     cpdef reset(self):
         self.rel_pos=0
 
-    def search(self, buffer):
+    def search(self, buffer, count=None):
         cdef unsigned int buflen
         cdef unsigned char c;
         cdef unsigned char * buf
@@ -153,6 +153,10 @@ cdef class Raita:
                 _b = buf + self.rel_pos + 1
                 if memcmp(_p, _b, self.pattern_size-1) == 0:
                     poslist.append(self.rel_pos)
+                    if count != None:
+                        count-=1
+                        if count <= 0:
+                            break
             assert c>=0 and c<=255
             self.rel_pos+=self.bmBc[c]
 

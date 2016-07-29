@@ -708,6 +708,14 @@ static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
 #define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
+/* PyIntBinop.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace);
+#else
+#define __Pyx_PyInt_SubtractObjC(op1, op2, intval, inplace)\
+    (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
+#endif
+
 /* SetVTable.proto */
 static int __Pyx_SetVtable(PyObject *dict, void *vtable);
 
@@ -769,10 +777,12 @@ static const char __pyx_k__2[] = "";
 static const char __pyx_k_NULL[] = "<NULL>";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_count[] = "count";
 static const char __pyx_k_empty[] = "empty";
 static const char __pyx_k_found[] = "found";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_reset[] = "reset";
+static const char __pyx_k_buffer[] = "buffer";
 static const char __pyx_k_pattern[] = "pattern";
 static const char __pyx_k_not_found[] = "not found";
 static const char __pyx_k_ValueError[] = "ValueError";
@@ -787,6 +797,8 @@ static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_b__2;
 static PyObject *__pyx_kp_s_argument_must_be_a_buffer_of_byt;
 static PyObject *__pyx_kp_s_argument_must_be_a_bytes_object;
+static PyObject *__pyx_n_s_buffer;
+static PyObject *__pyx_n_s_count;
 static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_found;
 static PyObject *__pyx_n_s_main;
@@ -804,9 +816,11 @@ static int __pyx_pf_3icc_9bufsearch_5raita_5Raita_2__init__(struct __pyx_obj_3ic
 static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_4set_pattern(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static void __pyx_pf_3icc_9bufsearch_5raita_5Raita_6__dealloc__(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_8reset(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self, PyObject *__pyx_v_buffer); /* proto */
+static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self, PyObject *__pyx_v_buffer, PyObject *__pyx_v_count); /* proto */
 static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_8relative___get__(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_3icc_9bufsearch_5raita_Raita(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_int_0;
+static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_256;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__3;
@@ -1824,7 +1838,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_reset(struct __pyx_obj_3i
  *     cpdef reset(self):
  *         self.rel_pos=0             # <<<<<<<<<<<<<<
  * 
- *     def search(self, buffer):
+ *     def search(self, buffer, count=None):
  */
   __pyx_v_self->rel_pos = 0;
 
@@ -1891,25 +1905,73 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_8reset(struct __pyx_obj_
 /* "icc/bufsearch/raita.pyx":122
  *         self.rel_pos=0
  * 
- *     def search(self, buffer):             # <<<<<<<<<<<<<<
+ *     def search(self, buffer, count=None):             # <<<<<<<<<<<<<<
  *         cdef unsigned int buflen
  *         cdef unsigned char c;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3icc_9bufsearch_5raita_5Raita_11search(PyObject *__pyx_v_self, PyObject *__pyx_v_buffer); /*proto*/
-static PyObject *__pyx_pw_3icc_9bufsearch_5raita_5Raita_11search(PyObject *__pyx_v_self, PyObject *__pyx_v_buffer) {
+static PyObject *__pyx_pw_3icc_9bufsearch_5raita_5Raita_11search(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_3icc_9bufsearch_5raita_5Raita_11search(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_buffer = 0;
+  PyObject *__pyx_v_count = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("search (wrapper)", 0);
-  __pyx_r = __pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(((struct __pyx_obj_3icc_9bufsearch_5raita_Raita *)__pyx_v_self), ((PyObject *)__pyx_v_buffer));
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_buffer,&__pyx_n_s_count,0};
+    PyObject* values[2] = {0,0};
+    values[1] = ((PyObject *)Py_None);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_buffer)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_count);
+          if (value) { values[1] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "search") < 0)) __PYX_ERR(0, 122, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_buffer = values[0];
+    __pyx_v_count = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("search", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 122, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("icc.bufsearch.raita.Raita.search", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(((struct __pyx_obj_3icc_9bufsearch_5raita_Raita *)__pyx_v_self), __pyx_v_buffer, __pyx_v_count);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self, PyObject *__pyx_v_buffer) {
+static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self, PyObject *__pyx_v_buffer, PyObject *__pyx_v_count) {
   unsigned int __pyx_v_buflen;
   unsigned char __pyx_v_c;
   unsigned char *__pyx_v_buf;
@@ -1924,6 +1986,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
   int __pyx_t_4;
   int __pyx_t_5;
   __Pyx_RefNannySetupContext("search", 0);
+  __Pyx_INCREF(__pyx_v_count);
 
   /* "icc/bufsearch/raita.pyx":129
  *         cdef unsigned char * _b
@@ -2158,7 +2221,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  *                 _b = buf + self.rel_pos + 1
  *                 if memcmp(_p, _b, self.pattern_size-1) == 0:             # <<<<<<<<<<<<<<
  *                     poslist.append(self.rel_pos)
- *             assert c>=0 and c<=255
+ *                     if count != None:
  */
       __pyx_t_2 = ((memcmp(__pyx_v__p, __pyx_v__b, (__pyx_v_self->pattern_size - 1)) == 0) != 0);
       if (__pyx_t_2) {
@@ -2167,20 +2230,83 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  *                 _b = buf + self.rel_pos + 1
  *                 if memcmp(_p, _b, self.pattern_size-1) == 0:
  *                     poslist.append(self.rel_pos)             # <<<<<<<<<<<<<<
- *             assert c>=0 and c<=255
- *             self.rel_pos+=self.bmBc[c]
+ *                     if count != None:
+ *                         count-=1
  */
         __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->rel_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_poslist, __pyx_t_1); if (unlikely(__pyx_t_5 == -1)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+        /* "icc/bufsearch/raita.pyx":156
+ *                 if memcmp(_p, _b, self.pattern_size-1) == 0:
+ *                     poslist.append(self.rel_pos)
+ *                     if count != None:             # <<<<<<<<<<<<<<
+ *                         count-=1
+ *                         if count <= 0:
+ */
+        __pyx_t_1 = PyObject_RichCompare(__pyx_v_count, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__pyx_t_2) {
+
+          /* "icc/bufsearch/raita.pyx":157
+ *                     poslist.append(self.rel_pos)
+ *                     if count != None:
+ *                         count-=1             # <<<<<<<<<<<<<<
+ *                         if count <= 0:
+ *                             break
+ */
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_count, __pyx_int_1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          __Pyx_DECREF_SET(__pyx_v_count, __pyx_t_1);
+          __pyx_t_1 = 0;
+
+          /* "icc/bufsearch/raita.pyx":158
+ *                     if count != None:
+ *                         count-=1
+ *                         if count <= 0:             # <<<<<<<<<<<<<<
+ *                             break
+ *             assert c>=0 and c<=255
+ */
+          __pyx_t_1 = PyObject_RichCompare(__pyx_v_count, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          if (__pyx_t_2) {
+
+            /* "icc/bufsearch/raita.pyx":159
+ *                         count-=1
+ *                         if count <= 0:
+ *                             break             # <<<<<<<<<<<<<<
+ *             assert c>=0 and c<=255
+ *             self.rel_pos+=self.bmBc[c]
+ */
+            goto __pyx_L7_break;
+
+            /* "icc/bufsearch/raita.pyx":158
+ *                     if count != None:
+ *                         count-=1
+ *                         if count <= 0:             # <<<<<<<<<<<<<<
+ *                             break
+ *             assert c>=0 and c<=255
+ */
+          }
+
+          /* "icc/bufsearch/raita.pyx":156
+ *                 if memcmp(_p, _b, self.pattern_size-1) == 0:
+ *                     poslist.append(self.rel_pos)
+ *                     if count != None:             # <<<<<<<<<<<<<<
+ *                         count-=1
+ *                         if count <= 0:
+ */
+        }
+
         /* "icc/bufsearch/raita.pyx":154
  * 
  *                 _b = buf + self.rel_pos + 1
  *                 if memcmp(_p, _b, self.pattern_size-1) == 0:             # <<<<<<<<<<<<<<
  *                     poslist.append(self.rel_pos)
- *             assert c>=0 and c<=255
+ *                     if count != None:
  */
       }
 
@@ -2193,9 +2319,9 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
     }
 
-    /* "icc/bufsearch/raita.pyx":156
- *                 if memcmp(_p, _b, self.pattern_size-1) == 0:
- *                     poslist.append(self.rel_pos)
+    /* "icc/bufsearch/raita.pyx":160
+ *                         if count <= 0:
+ *                             break
  *             assert c>=0 and c<=255             # <<<<<<<<<<<<<<
  *             self.rel_pos+=self.bmBc[c]
  * 
@@ -2206,20 +2332,20 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
       if (__pyx_t_4) {
       } else {
         __pyx_t_2 = __pyx_t_4;
-        goto __pyx_L13_bool_binop_done;
+        goto __pyx_L15_bool_binop_done;
       }
       __pyx_t_4 = ((__pyx_v_c <= 0xFF) != 0);
       __pyx_t_2 = __pyx_t_4;
-      __pyx_L13_bool_binop_done:;
+      __pyx_L15_bool_binop_done:;
       if (unlikely(!__pyx_t_2)) {
         PyErr_SetNone(PyExc_AssertionError);
-        __PYX_ERR(0, 156, __pyx_L1_error)
+        __PYX_ERR(0, 160, __pyx_L1_error)
       }
     }
     #endif
 
-    /* "icc/bufsearch/raita.pyx":157
- *                     poslist.append(self.rel_pos)
+    /* "icc/bufsearch/raita.pyx":161
+ *                             break
  *             assert c>=0 and c<=255
  *             self.rel_pos+=self.bmBc[c]             # <<<<<<<<<<<<<<
  * 
@@ -2227,8 +2353,9 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
     __pyx_v_self->rel_pos = (__pyx_v_self->rel_pos + (__pyx_v_self->bmBc[__pyx_v_c]));
   }
+  __pyx_L7_break:;
 
-  /* "icc/bufsearch/raita.pyx":160
+  /* "icc/bufsearch/raita.pyx":164
  * 
  *         # Here self.rel_pos > buflen - self.pattern_size
  *         self.rel_pos -= buflen             # <<<<<<<<<<<<<<
@@ -2237,18 +2364,18 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
   __pyx_v_self->rel_pos = (__pyx_v_self->rel_pos - __pyx_v_buflen);
 
-  /* "icc/bufsearch/raita.pyx":161
+  /* "icc/bufsearch/raita.pyx":165
  *         # Here self.rel_pos > buflen - self.pattern_size
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:             # <<<<<<<<<<<<<<
  *             return None, "not found"
  *         return poslist, "found"
  */
-  __pyx_t_3 = PyList_GET_SIZE(__pyx_v_poslist); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_3 = PyList_GET_SIZE(__pyx_v_poslist); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 165, __pyx_L1_error)
   __pyx_t_2 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "icc/bufsearch/raita.pyx":162
+    /* "icc/bufsearch/raita.pyx":166
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:
  *             return None, "not found"             # <<<<<<<<<<<<<<
@@ -2260,7 +2387,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
     __pyx_r = __pyx_tuple__7;
     goto __pyx_L0;
 
-    /* "icc/bufsearch/raita.pyx":161
+    /* "icc/bufsearch/raita.pyx":165
  *         # Here self.rel_pos > buflen - self.pattern_size
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:             # <<<<<<<<<<<<<<
@@ -2269,7 +2396,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
   }
 
-  /* "icc/bufsearch/raita.pyx":163
+  /* "icc/bufsearch/raita.pyx":167
  *         if len(poslist)==0:
  *             return None, "not found"
  *         return poslist, "found"             # <<<<<<<<<<<<<<
@@ -2277,7 +2404,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_poslist);
   __Pyx_GIVEREF(__pyx_v_poslist);
@@ -2292,7 +2419,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
   /* "icc/bufsearch/raita.pyx":122
  *         self.rel_pos=0
  * 
- *     def search(self, buffer):             # <<<<<<<<<<<<<<
+ *     def search(self, buffer, count=None):             # <<<<<<<<<<<<<<
  *         cdef unsigned int buflen
  *         cdef unsigned char c;
  */
@@ -2304,12 +2431,13 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_poslist);
+  __Pyx_XDECREF(__pyx_v_count);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "icc/bufsearch/raita.pyx":166
+/* "icc/bufsearch/raita.pyx":170
  * 
  *     @property
  *     def relative(self):             # <<<<<<<<<<<<<<
@@ -2335,19 +2463,19 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_8relative___get__(struct
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "icc/bufsearch/raita.pyx":167
+  /* "icc/bufsearch/raita.pyx":171
  *     @property
  *     def relative(self):
  *         return self.rel_pos             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->rel_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->rel_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "icc/bufsearch/raita.pyx":166
+  /* "icc/bufsearch/raita.pyx":170
  * 
  *     @property
  *     def relative(self):             # <<<<<<<<<<<<<<
@@ -2407,7 +2535,7 @@ static PyObject *__pyx_getprop_3icc_9bufsearch_5raita_5Raita_relative(PyObject *
 static PyMethodDef __pyx_methods_3icc_9bufsearch_5raita_Raita[] = {
   {"set_pattern", (PyCFunction)__pyx_pw_3icc_9bufsearch_5raita_5Raita_5set_pattern, METH_O, 0},
   {"reset", (PyCFunction)__pyx_pw_3icc_9bufsearch_5raita_5Raita_9reset, METH_NOARGS, 0},
-  {"search", (PyCFunction)__pyx_pw_3icc_9bufsearch_5raita_5Raita_11search, METH_O, 0},
+  {"search", (PyCFunction)__pyx_pw_3icc_9bufsearch_5raita_5Raita_11search, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -2502,6 +2630,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_b__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 0, 0, 0},
   {&__pyx_kp_s_argument_must_be_a_buffer_of_byt, __pyx_k_argument_must_be_a_buffer_of_byt, sizeof(__pyx_k_argument_must_be_a_buffer_of_byt), 0, 0, 1, 0},
   {&__pyx_kp_s_argument_must_be_a_bytes_object, __pyx_k_argument_must_be_a_bytes_object, sizeof(__pyx_k_argument_must_be_a_bytes_object), 0, 0, 1, 0},
+  {&__pyx_n_s_buffer, __pyx_k_buffer, sizeof(__pyx_k_buffer), 0, 0, 1, 1},
+  {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_found, __pyx_k_found, sizeof(__pyx_k_found), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -2583,14 +2713,14 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "icc/bufsearch/raita.pyx":162
+  /* "icc/bufsearch/raita.pyx":166
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:
  *             return None, "not found"             # <<<<<<<<<<<<<<
  *         return poslist, "found"
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(2, Py_None, __pyx_kp_s_not_found); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(2, Py_None, __pyx_kp_s_not_found); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
   __Pyx_RefNannyFinishContext();
@@ -2602,6 +2732,8 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_256 = PyInt_FromLong(256); if (unlikely(!__pyx_int_256)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -3238,6 +3370,104 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
         }
     }
     return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
+}
+#endif
+
+/* PyIntBinop */
+      #if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long x;
+        long a = PyInt_AS_LONG(op1);
+            x = (long)((unsigned long)a - b);
+            if (likely((x^a) >= 0 || (x^~b) >= 0))
+                return PyInt_FromLong(x);
+            return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS && PY_MAJOR_VERSION >= 3
+    if (likely(PyLong_CheckExact(op1))) {
+        const long b = intval;
+        long a, x;
+        const PY_LONG_LONG llb = intval;
+        PY_LONG_LONG lla, llx;
+        const digit* digits = ((PyLongObject*)op1)->ob_digit;
+        const Py_ssize_t size = Py_SIZE(op1);
+        if (likely(__Pyx_sst_abs(size) <= 1)) {
+            a = likely(size) ? digits[0] : 0;
+            if (size == -1) a = -a;
+        } else {
+            switch (size) {
+                case -2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    }
+                case 2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    }
+                case -3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    }
+                case 3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    }
+                case -4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    }
+                case 4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+                    }
+                default: return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
+            }
+        }
+                x = a - b;
+            return PyLong_FromLong(x);
+        long_long:
+                llx = lla - llb;
+            return PyLong_FromLongLong(llx);
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+        double a = PyFloat_AS_DOUBLE(op1);
+            double result;
+            PyFPE_START_PROTECT("subtract", return NULL)
+            result = ((double)a) - (double)b;
+            PyFPE_END_PROTECT(result)
+            return PyFloat_FromDouble(result);
+    }
+    return (inplace ? PyNumber_InPlaceSubtract : PyNumber_Subtract)(op1, op2);
 }
 #endif
 

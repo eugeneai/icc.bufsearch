@@ -32,6 +32,11 @@ class test_engine:
         rc, reason =self.raita.search(PATTERN*2)
         assert rc == [0,len(PATTERN)]
 
+    def test_double_count1(self):
+        rc, reason =self.raita.search(PATTERN*2, count=1)
+        print (rc)
+        assert rc == [0]
+
 
 class test_engine_multibuffer:
     def setUp(self):
