@@ -8,9 +8,10 @@
 
 #A virtualenv name
 LPYTHON=python3
-V=$(PWD)/../$(LPYTHON)
+V=/home/eugeneai/.pyenv/versions/tmp
 VB=$(V)/bin
 PYTHON=$(VB)/$(LPYTHON)
+#PYTHON=python
 #ROOT=$(PWD)
 #INI=icc.bufsearch
 #LCAT=src/icc.bufsearch/locale/
@@ -23,14 +24,14 @@ env:
 	[ -d $(V) ] || virtualenv  $(V)
 	$(VB)/easy_install --upgrade pip
 
-pre-dev:env #dev-....
+pre-dev: env #dev-....
 	$(VB)/easy_install pip setuptools
 
 setup:
 	$(PYTHON) setup.py build_ext # -L$(LG_LIB_DIR) -R$(LG_LIB_DIR) -I$(LG_HEADERS)
 	$(PYTHON) setup.py develop
 
-dev:	pre-dev setup-requs setup # upd-cat
+dev:	setup-requs setup # upd-cat
 
 develop: dev
 

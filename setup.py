@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 import sys, os
-#from Cython.Build import cythonize
+from Cython.Build import cythonize
 from setuptools.extension import Extension
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -47,10 +47,10 @@ dependency_links = [
 #LG_HEADERS=os.path.join(TOP_DIR)
 
 ext_modules=[
-#    Extension("icc.linkgrammar.cplinkgrammar",
-#              sources=["src/icc/linkgrammar/cplinkgrammar.pyx"],
-#              libraries=["link-grammar"],
-#    )
+    Extension("icc.bufsearch.raita",
+              sources=["src/icc/bufsearch/raita.pyx"],
+#             libraries=["link-grammar"],
+    )
 ]
 
 setup(
@@ -89,7 +89,7 @@ setup(
         'console_scripts':
             ['icc.bufsearch=icc.bufsearch:main']
     },
-    #ext_modules = cythonize(ext_modules),
+    ext_modules = cythonize(ext_modules),
     #test_suite = 'nose.collector',
     setup_requires=['nose>=1.0','Cython','coverage']
 )
