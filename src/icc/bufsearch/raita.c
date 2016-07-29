@@ -523,11 +523,11 @@ struct __pyx_obj_3icc_9bufsearch_5raita_Raita {
   struct __pyx_vtabstruct_3icc_9bufsearch_5raita_Raita *__pyx_vtab;
   unsigned int bmBc[0x100];
   unsigned int rel_pos;
-  int middle_pos;
+  unsigned int middle_pos;
   unsigned char first_char;
   unsigned char last_char;
   unsigned char middle_char;
-  char *pattern;
+  unsigned char *pattern;
   unsigned int multibuffer;
   unsigned int pattern_size;
 };
@@ -733,18 +733,8 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
 
-/* Print.proto */
-static int __Pyx_Print(PyObject*, PyObject *, int);
-#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
-static PyObject* __pyx_print = 0;
-static PyObject* __pyx_print_kwargs = 0;
-#endif
-
 /* CIntFromPy.proto */
 static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *);
-
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
@@ -776,18 +766,14 @@ int __pyx_module_is_main_icc__bufsearch__raita = 0;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static const char __pyx_k__2[] = "";
-static const char __pyx_k_end[] = "end";
 static const char __pyx_k_NULL[] = "<NULL>";
-static const char __pyx_k_file[] = "file";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_empty[] = "empty";
 static const char __pyx_k_found[] = "found";
-static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_reset[] = "reset";
 static const char __pyx_k_pattern[] = "pattern";
-static const char __pyx_k_reset_2[] = "reset!";
 static const char __pyx_k_not_found[] = "not found";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
@@ -802,19 +788,15 @@ static PyObject *__pyx_kp_b__2;
 static PyObject *__pyx_kp_s_argument_must_be_a_buffer_of_byt;
 static PyObject *__pyx_kp_s_argument_must_be_a_bytes_object;
 static PyObject *__pyx_n_s_empty;
-static PyObject *__pyx_n_s_end;
-static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_found;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_multibuffer;
 static PyObject *__pyx_kp_s_not_found;
 static PyObject *__pyx_n_s_pattern;
 static PyObject *__pyx_kp_s_pattern_is_empty;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_reset;
-static PyObject *__pyx_kp_s_reset_2;
 static PyObject *__pyx_n_s_set_pattern;
 static PyObject *__pyx_n_s_test;
 static int __pyx_pf_3icc_9bufsearch_5raita_5Raita___cinit__(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self); /* proto */
@@ -1171,18 +1153,18 @@ static int __pyx_pf_3icc_9bufsearch_5raita_5Raita_2__init__(struct __pyx_obj_3ic
  *         self.reset()
  * 
  *     cdef preBmBc(self):             # <<<<<<<<<<<<<<
- *         cdef char * bytes
+ *         cdef unsigned char * bytes
  *         cdef unsigned int size
  */
 
 static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_preBmBc(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self) {
-  char *__pyx_v_bytes;
+  unsigned char *__pyx_v_bytes;
   unsigned int __pyx_v_size;
   unsigned int __pyx_v_size1;
   PyObject *__pyx_v_i = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  char *__pyx_t_1;
+  unsigned char *__pyx_t_1;
   unsigned int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
@@ -1420,7 +1402,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_preBmBc(struct __pyx_obj_
  *         self.reset()
  * 
  *     cdef preBmBc(self):             # <<<<<<<<<<<<<<
- *         cdef char * bytes
+ *         cdef unsigned char * bytes
  *         cdef unsigned int size
  */
 
@@ -1444,13 +1426,13 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_preBmBc(struct __pyx_obj_
  *         self.middle_char=bytes[self.middle_pos]
  * 
  *     cpdef set_pattern(self, value):             # <<<<<<<<<<<<<<
- *         cdef char * s
+ *         cdef unsigned char * s
  *         cdef unsigned int size
  */
 
 static PyObject *__pyx_pw_3icc_9bufsearch_5raita_5Raita_5set_pattern(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
 static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_set_pattern(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self, PyObject *__pyx_v_value, int __pyx_skip_dispatch) {
-  char *__pyx_v_s;
+  unsigned char *__pyx_v_s;
   unsigned int __pyx_v_size;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1509,7 +1491,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_set_pattern(struct __pyx_
  *         #    self._pattern=_s(value)
  *         if type(value) == type(b""):             # <<<<<<<<<<<<<<
  *             self.pattern_size = size = PyBytes_Size(value)
- *             s = PyBytes_AsString(value)
+ *             s = <unsigned char *>PyBytes_AsString(value)
  */
   __pyx_t_1 = PyObject_RichCompare(((PyObject *)Py_TYPE(__pyx_v_value)), ((PyObject *)Py_TYPE(__pyx_kp_b__2)), Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
   __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
@@ -1520,7 +1502,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_set_pattern(struct __pyx_
  *         #    self._pattern=_s(value)
  *         if type(value) == type(b""):
  *             self.pattern_size = size = PyBytes_Size(value)             # <<<<<<<<<<<<<<
- *             s = PyBytes_AsString(value)
+ *             s = <unsigned char *>PyBytes_AsString(value)
  *         else:
  */
     __pyx_t_7 = PyBytes_Size(__pyx_v_value);
@@ -1530,24 +1512,24 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_set_pattern(struct __pyx_
     /* "icc/bufsearch/raita.pyx":102
  *         if type(value) == type(b""):
  *             self.pattern_size = size = PyBytes_Size(value)
- *             s = PyBytes_AsString(value)             # <<<<<<<<<<<<<<
+ *             s = <unsigned char *>PyBytes_AsString(value)             # <<<<<<<<<<<<<<
  *         else:
  *             raise ValueError("argument must be a bytes object")
  */
-    __pyx_v_s = PyBytes_AsString(__pyx_v_value);
+    __pyx_v_s = ((unsigned char *)PyBytes_AsString(__pyx_v_value));
 
     /* "icc/bufsearch/raita.pyx":100
  *         #    size = unicode
  *         #    self._pattern=_s(value)
  *         if type(value) == type(b""):             # <<<<<<<<<<<<<<
  *             self.pattern_size = size = PyBytes_Size(value)
- *             s = PyBytes_AsString(value)
+ *             s = <unsigned char *>PyBytes_AsString(value)
  */
     goto __pyx_L3;
   }
 
   /* "icc/bufsearch/raita.pyx":104
- *             s = PyBytes_AsString(value)
+ *             s = <unsigned char *>PyBytes_AsString(value)
  *         else:
  *             raise ValueError("argument must be a bytes object")             # <<<<<<<<<<<<<<
  *         if size==0:
@@ -1599,7 +1581,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_set_pattern(struct __pyx_
  *             raise ValueError("pattern is empty")
  *         if self.pattern != NULL:             # <<<<<<<<<<<<<<
  *             PyMem_RawFree(self.pattern)
- *         self.pattern=<char *>PyMem_RawMalloc(size)
+ *             self.pattern=NULL
  */
   __pyx_t_6 = ((__pyx_v_self->pattern != NULL) != 0);
   if (__pyx_t_6) {
@@ -1608,46 +1590,55 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_set_pattern(struct __pyx_
  *             raise ValueError("pattern is empty")
  *         if self.pattern != NULL:
  *             PyMem_RawFree(self.pattern)             # <<<<<<<<<<<<<<
- *         self.pattern=<char *>PyMem_RawMalloc(size)
- *         memcpy(self.pattern, s, size)
+ *             self.pattern=NULL
+ *         self.pattern=<unsigned char *>PyMem_RawMalloc(size)
  */
     PyMem_RawFree(__pyx_v_self->pattern);
+
+    /* "icc/bufsearch/raita.pyx":109
+ *         if self.pattern != NULL:
+ *             PyMem_RawFree(self.pattern)
+ *             self.pattern=NULL             # <<<<<<<<<<<<<<
+ *         self.pattern=<unsigned char *>PyMem_RawMalloc(size)
+ *         memcpy(self.pattern, s, size)
+ */
+    __pyx_v_self->pattern = NULL;
 
     /* "icc/bufsearch/raita.pyx":107
  *         if size==0:
  *             raise ValueError("pattern is empty")
  *         if self.pattern != NULL:             # <<<<<<<<<<<<<<
  *             PyMem_RawFree(self.pattern)
- *         self.pattern=<char *>PyMem_RawMalloc(size)
+ *             self.pattern=NULL
  */
   }
 
-  /* "icc/bufsearch/raita.pyx":109
- *         if self.pattern != NULL:
+  /* "icc/bufsearch/raita.pyx":110
  *             PyMem_RawFree(self.pattern)
- *         self.pattern=<char *>PyMem_RawMalloc(size)             # <<<<<<<<<<<<<<
+ *             self.pattern=NULL
+ *         self.pattern=<unsigned char *>PyMem_RawMalloc(size)             # <<<<<<<<<<<<<<
  *         memcpy(self.pattern, s, size)
  *         self.preBmBc()
  */
-  __pyx_v_self->pattern = ((char *)PyMem_RawMalloc(__pyx_v_size));
+  __pyx_v_self->pattern = ((unsigned char *)PyMem_RawMalloc(__pyx_v_size));
 
-  /* "icc/bufsearch/raita.pyx":110
- *             PyMem_RawFree(self.pattern)
- *         self.pattern=<char *>PyMem_RawMalloc(size)
+  /* "icc/bufsearch/raita.pyx":111
+ *             self.pattern=NULL
+ *         self.pattern=<unsigned char *>PyMem_RawMalloc(size)
  *         memcpy(self.pattern, s, size)             # <<<<<<<<<<<<<<
  *         self.preBmBc()
  * 
  */
   memcpy(__pyx_v_self->pattern, __pyx_v_s, __pyx_v_size);
 
-  /* "icc/bufsearch/raita.pyx":111
- *         self.pattern=<char *>PyMem_RawMalloc(size)
+  /* "icc/bufsearch/raita.pyx":112
+ *         self.pattern=<unsigned char *>PyMem_RawMalloc(size)
  *         memcpy(self.pattern, s, size)
  *         self.preBmBc()             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_3icc_9bufsearch_5raita_Raita *)__pyx_v_self->__pyx_vtab)->preBmBc(__pyx_v_self); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_3icc_9bufsearch_5raita_Raita *)__pyx_v_self->__pyx_vtab)->preBmBc(__pyx_v_self); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -1655,7 +1646,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_set_pattern(struct __pyx_
  *         self.middle_char=bytes[self.middle_pos]
  * 
  *     cpdef set_pattern(self, value):             # <<<<<<<<<<<<<<
- *         cdef char * s
+ *         cdef unsigned char * s
  *         cdef unsigned int size
  */
 
@@ -1712,12 +1703,12 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_4set_pattern(struct __py
   return __pyx_r;
 }
 
-/* "icc/bufsearch/raita.pyx":113
+/* "icc/bufsearch/raita.pyx":114
  *         self.preBmBc()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         if self.pattern!=NULL:
- *             PyMem_RawFree(self.pattern)
+ *             #PyMem_RawFree(self.pattern)
  */
 
 /* Python wrapper */
@@ -1736,56 +1727,47 @@ static void __pyx_pf_3icc_9bufsearch_5raita_5Raita_6__dealloc__(struct __pyx_obj
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "icc/bufsearch/raita.pyx":114
+  /* "icc/bufsearch/raita.pyx":115
  * 
  *     def __dealloc__(self):
  *         if self.pattern!=NULL:             # <<<<<<<<<<<<<<
- *             PyMem_RawFree(self.pattern)
+ *             #PyMem_RawFree(self.pattern)
  *             self.pattern=NULL
  */
   __pyx_t_1 = ((__pyx_v_self->pattern != NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "icc/bufsearch/raita.pyx":115
- *     def __dealloc__(self):
+    /* "icc/bufsearch/raita.pyx":117
  *         if self.pattern!=NULL:
- *             PyMem_RawFree(self.pattern)             # <<<<<<<<<<<<<<
- *             self.pattern=NULL
- * 
- */
-    PyMem_RawFree(__pyx_v_self->pattern);
-
-    /* "icc/bufsearch/raita.pyx":116
- *         if self.pattern!=NULL:
- *             PyMem_RawFree(self.pattern)
+ *             #PyMem_RawFree(self.pattern)
  *             self.pattern=NULL             # <<<<<<<<<<<<<<
  * 
  *     cpdef reset(self):
  */
     __pyx_v_self->pattern = NULL;
 
-    /* "icc/bufsearch/raita.pyx":114
+    /* "icc/bufsearch/raita.pyx":115
  * 
  *     def __dealloc__(self):
  *         if self.pattern!=NULL:             # <<<<<<<<<<<<<<
- *             PyMem_RawFree(self.pattern)
+ *             #PyMem_RawFree(self.pattern)
  *             self.pattern=NULL
  */
   }
 
-  /* "icc/bufsearch/raita.pyx":113
+  /* "icc/bufsearch/raita.pyx":114
  *         self.preBmBc()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         if self.pattern!=NULL:
- *             PyMem_RawFree(self.pattern)
+ *             #PyMem_RawFree(self.pattern)
  */
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-/* "icc/bufsearch/raita.pyx":118
+/* "icc/bufsearch/raita.pyx":119
  *             self.pattern=NULL
  * 
  *     cpdef reset(self):             # <<<<<<<<<<<<<<
@@ -1806,7 +1788,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_reset(struct __pyx_obj_3i
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_reset); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_reset); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_3icc_9bufsearch_5raita_5Raita_9reset)) {
       __Pyx_XDECREF(__pyx_r);
@@ -1822,10 +1804,10 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_reset(struct __pyx_obj_3i
         }
       }
       if (__pyx_t_4) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else {
-        __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
       }
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -1837,7 +1819,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_reset(struct __pyx_obj_3i
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "icc/bufsearch/raita.pyx":119
+  /* "icc/bufsearch/raita.pyx":120
  * 
  *     cpdef reset(self):
  *         self.rel_pos=0             # <<<<<<<<<<<<<<
@@ -1846,7 +1828,7 @@ static PyObject *__pyx_f_3icc_9bufsearch_5raita_5Raita_reset(struct __pyx_obj_3i
  */
   __pyx_v_self->rel_pos = 0;
 
-  /* "icc/bufsearch/raita.pyx":118
+  /* "icc/bufsearch/raita.pyx":119
  *             self.pattern=NULL
  * 
  *     cpdef reset(self):             # <<<<<<<<<<<<<<
@@ -1889,7 +1871,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_8reset(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("reset", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_3icc_9bufsearch_5raita_5Raita_reset(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_3icc_9bufsearch_5raita_5Raita_reset(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1906,7 +1888,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_8reset(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "icc/bufsearch/raita.pyx":121
+/* "icc/bufsearch/raita.pyx":122
  *         self.rel_pos=0
  * 
  *     def search(self, buffer):             # <<<<<<<<<<<<<<
@@ -1930,9 +1912,9 @@ static PyObject *__pyx_pw_3icc_9bufsearch_5raita_5Raita_11search(PyObject *__pyx
 static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_obj_3icc_9bufsearch_5raita_Raita *__pyx_v_self, PyObject *__pyx_v_buffer) {
   unsigned int __pyx_v_buflen;
   unsigned char __pyx_v_c;
-  char *__pyx_v_buf;
-  char *__pyx_v__p;
-  char *__pyx_v__b;
+  unsigned char *__pyx_v_buf;
+  unsigned char *__pyx_v__p;
+  unsigned char *__pyx_v__b;
   PyObject *__pyx_v_poslist = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -1943,33 +1925,33 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
   int __pyx_t_5;
   __Pyx_RefNannySetupContext("search", 0);
 
-  /* "icc/bufsearch/raita.pyx":128
- *         cdef char * _b
+  /* "icc/bufsearch/raita.pyx":129
+ *         cdef unsigned char * _b
  * 
  *         if type(buffer)!=type(b""):             # <<<<<<<<<<<<<<
  *             raise ValueError("argument must be a buffer of bytes")
  * 
  */
-  __pyx_t_1 = PyObject_RichCompare(((PyObject *)Py_TYPE(__pyx_v_buffer)), ((PyObject *)Py_TYPE(__pyx_kp_b__2)), Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(((PyObject *)Py_TYPE(__pyx_v_buffer)), ((PyObject *)Py_TYPE(__pyx_kp_b__2)), Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "icc/bufsearch/raita.pyx":129
+    /* "icc/bufsearch/raita.pyx":130
  * 
  *         if type(buffer)!=type(b""):
  *             raise ValueError("argument must be a buffer of bytes")             # <<<<<<<<<<<<<<
  * 
  *         buflen=len(buffer)
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 129, __pyx_L1_error)
+    __PYX_ERR(0, 130, __pyx_L1_error)
 
-    /* "icc/bufsearch/raita.pyx":128
- *         cdef char * _b
+    /* "icc/bufsearch/raita.pyx":129
+ *         cdef unsigned char * _b
  * 
  *         if type(buffer)!=type(b""):             # <<<<<<<<<<<<<<
  *             raise ValueError("argument must be a buffer of bytes")
@@ -1977,17 +1959,17 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
   }
 
-  /* "icc/bufsearch/raita.pyx":131
+  /* "icc/bufsearch/raita.pyx":132
  *             raise ValueError("argument must be a buffer of bytes")
  * 
  *         buflen=len(buffer)             # <<<<<<<<<<<<<<
  * 
  *         if buflen == 0:
  */
-  __pyx_t_3 = PyObject_Length(__pyx_v_buffer); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_3 = PyObject_Length(__pyx_v_buffer); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 132, __pyx_L1_error)
   __pyx_v_buflen = __pyx_t_3;
 
-  /* "icc/bufsearch/raita.pyx":133
+  /* "icc/bufsearch/raita.pyx":134
  *         buflen=len(buffer)
  * 
  *         if buflen == 0:             # <<<<<<<<<<<<<<
@@ -1997,7 +1979,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
   __pyx_t_2 = ((__pyx_v_buflen == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "icc/bufsearch/raita.pyx":134
+    /* "icc/bufsearch/raita.pyx":135
  * 
  *         if buflen == 0:
  *             return None, "empty"             # <<<<<<<<<<<<<<
@@ -2009,7 +1991,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
     __pyx_r = __pyx_tuple__6;
     goto __pyx_L0;
 
-    /* "icc/bufsearch/raita.pyx":133
+    /* "icc/bufsearch/raita.pyx":134
  *         buflen=len(buffer)
  * 
  *         if buflen == 0:             # <<<<<<<<<<<<<<
@@ -2018,84 +2000,75 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
   }
 
-  /* "icc/bufsearch/raita.pyx":136
+  /* "icc/bufsearch/raita.pyx":137
  *             return None, "empty"
  * 
  *         poslist=[]             # <<<<<<<<<<<<<<
  * 
  *         if not self.multibuffer:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_poslist = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "icc/bufsearch/raita.pyx":138
+  /* "icc/bufsearch/raita.pyx":139
  *         poslist=[]
  * 
  *         if not self.multibuffer:             # <<<<<<<<<<<<<<
- *             print("reset!")
  *             self.reset()
+ * 
  */
   __pyx_t_2 = ((!(__pyx_v_self->multibuffer != 0)) != 0);
   if (__pyx_t_2) {
 
-    /* "icc/bufsearch/raita.pyx":139
+    /* "icc/bufsearch/raita.pyx":140
  * 
  *         if not self.multibuffer:
- *             print("reset!")             # <<<<<<<<<<<<<<
- *             self.reset()
- *         assert self.rel_pos==0
- */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_reset_2) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
-
-    /* "icc/bufsearch/raita.pyx":140
- *         if not self.multibuffer:
- *             print("reset!")
  *             self.reset()             # <<<<<<<<<<<<<<
+ * 
  *         assert self.rel_pos==0
- *         buf = PyBytes_AsString(buffer)
  */
     __pyx_t_1 = ((struct __pyx_vtabstruct_3icc_9bufsearch_5raita_Raita *)__pyx_v_self->__pyx_vtab)->reset(__pyx_v_self, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "icc/bufsearch/raita.pyx":138
+    /* "icc/bufsearch/raita.pyx":139
  *         poslist=[]
  * 
  *         if not self.multibuffer:             # <<<<<<<<<<<<<<
- *             print("reset!")
  *             self.reset()
+ * 
  */
   }
 
-  /* "icc/bufsearch/raita.pyx":141
- *             print("reset!")
+  /* "icc/bufsearch/raita.pyx":142
  *             self.reset()
+ * 
  *         assert self.rel_pos==0             # <<<<<<<<<<<<<<
- *         buf = PyBytes_AsString(buffer)
+ *         buf = <unsigned char *>PyBytes_AsString(buffer)
  *         # while (self.rel_pos <= buflen-self.pattern_size):
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
     if (unlikely(!((__pyx_v_self->rel_pos == 0) != 0))) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 141, __pyx_L1_error)
+      __PYX_ERR(0, 142, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "icc/bufsearch/raita.pyx":142
- *             self.reset()
+  /* "icc/bufsearch/raita.pyx":143
+ * 
  *         assert self.rel_pos==0
- *         buf = PyBytes_AsString(buffer)             # <<<<<<<<<<<<<<
+ *         buf = <unsigned char *>PyBytes_AsString(buffer)             # <<<<<<<<<<<<<<
  *         # while (self.rel_pos <= buflen-self.pattern_size):
  *         _p = self.pattern + 1;
  */
-  __pyx_v_buf = PyBytes_AsString(__pyx_v_buffer);
+  __pyx_v_buf = ((unsigned char *)PyBytes_AsString(__pyx_v_buffer));
 
-  /* "icc/bufsearch/raita.pyx":144
- *         buf = PyBytes_AsString(buffer)
+  /* "icc/bufsearch/raita.pyx":145
+ *         buf = <unsigned char *>PyBytes_AsString(buffer)
  *         # while (self.rel_pos <= buflen-self.pattern_size):
  *         _p = self.pattern + 1;             # <<<<<<<<<<<<<<
  *         # c_raise(SIGINT)
@@ -2103,7 +2076,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
   __pyx_v__p = (__pyx_v_self->pattern + 1);
 
-  /* "icc/bufsearch/raita.pyx":146
+  /* "icc/bufsearch/raita.pyx":147
  *         _p = self.pattern + 1;
  *         # c_raise(SIGINT)
  *         while (self.rel_pos <= buflen - self.pattern_size):             # <<<<<<<<<<<<<<
@@ -2114,7 +2087,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
     __pyx_t_2 = ((__pyx_v_self->rel_pos <= (__pyx_v_buflen - __pyx_v_self->pattern_size)) != 0);
     if (!__pyx_t_2) break;
 
-    /* "icc/bufsearch/raita.pyx":147
+    /* "icc/bufsearch/raita.pyx":148
  *         # c_raise(SIGINT)
  *         while (self.rel_pos <= buflen - self.pattern_size):
  *             c = buf[self.rel_pos + self.pattern_size - 1]             # <<<<<<<<<<<<<<
@@ -2123,7 +2096,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
     __pyx_v_c = (__pyx_v_buf[((__pyx_v_self->rel_pos + __pyx_v_self->pattern_size) - 1)]);
 
-    /* "icc/bufsearch/raita.pyx":148
+    /* "icc/bufsearch/raita.pyx":149
  *         while (self.rel_pos <= buflen - self.pattern_size):
  *             c = buf[self.rel_pos + self.pattern_size - 1]
  *             if     self.last_char == c and \             # <<<<<<<<<<<<<<
@@ -2137,7 +2110,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
       goto __pyx_L9_bool_binop_done;
     }
 
-    /* "icc/bufsearch/raita.pyx":149
+    /* "icc/bufsearch/raita.pyx":150
  *             c = buf[self.rel_pos + self.pattern_size - 1]
  *             if     self.last_char == c and \
  *                    self.first_char == buf[self.rel_pos] and \             # <<<<<<<<<<<<<<
@@ -2151,7 +2124,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
       goto __pyx_L9_bool_binop_done;
     }
 
-    /* "icc/bufsearch/raita.pyx":150
+    /* "icc/bufsearch/raita.pyx":151
  *             if     self.last_char == c and \
  *                    self.first_char == buf[self.rel_pos] and \
  *                    self.middle_char == buf[self.rel_pos + self.middle_pos]:             # <<<<<<<<<<<<<<
@@ -2162,7 +2135,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
     __pyx_t_2 = __pyx_t_4;
     __pyx_L9_bool_binop_done:;
 
-    /* "icc/bufsearch/raita.pyx":148
+    /* "icc/bufsearch/raita.pyx":149
  *         while (self.rel_pos <= buflen - self.pattern_size):
  *             c = buf[self.rel_pos + self.pattern_size - 1]
  *             if     self.last_char == c and \             # <<<<<<<<<<<<<<
@@ -2171,7 +2144,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
     if (__pyx_t_2) {
 
-      /* "icc/bufsearch/raita.pyx":152
+      /* "icc/bufsearch/raita.pyx":153
  *                    self.middle_char == buf[self.rel_pos + self.middle_pos]:
  * 
  *                 _b = buf + self.rel_pos + 1             # <<<<<<<<<<<<<<
@@ -2180,7 +2153,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
       __pyx_v__b = ((__pyx_v_buf + __pyx_v_self->rel_pos) + 1);
 
-      /* "icc/bufsearch/raita.pyx":153
+      /* "icc/bufsearch/raita.pyx":154
  * 
  *                 _b = buf + self.rel_pos + 1
  *                 if memcmp(_p, _b, self.pattern_size-1) == 0:             # <<<<<<<<<<<<<<
@@ -2190,19 +2163,19 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
       __pyx_t_2 = ((memcmp(__pyx_v__p, __pyx_v__b, (__pyx_v_self->pattern_size - 1)) == 0) != 0);
       if (__pyx_t_2) {
 
-        /* "icc/bufsearch/raita.pyx":154
+        /* "icc/bufsearch/raita.pyx":155
  *                 _b = buf + self.rel_pos + 1
  *                 if memcmp(_p, _b, self.pattern_size-1) == 0:
  *                     poslist.append(self.rel_pos)             # <<<<<<<<<<<<<<
  *             assert c>=0 and c<=255
  *             self.rel_pos+=self.bmBc[c]
  */
-        __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->rel_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->rel_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_poslist, __pyx_t_1); if (unlikely(__pyx_t_5 == -1)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_poslist, __pyx_t_1); if (unlikely(__pyx_t_5 == -1)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "icc/bufsearch/raita.pyx":153
+        /* "icc/bufsearch/raita.pyx":154
  * 
  *                 _b = buf + self.rel_pos + 1
  *                 if memcmp(_p, _b, self.pattern_size-1) == 0:             # <<<<<<<<<<<<<<
@@ -2211,7 +2184,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
       }
 
-      /* "icc/bufsearch/raita.pyx":148
+      /* "icc/bufsearch/raita.pyx":149
  *         while (self.rel_pos <= buflen - self.pattern_size):
  *             c = buf[self.rel_pos + self.pattern_size - 1]
  *             if     self.last_char == c and \             # <<<<<<<<<<<<<<
@@ -2220,7 +2193,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
     }
 
-    /* "icc/bufsearch/raita.pyx":155
+    /* "icc/bufsearch/raita.pyx":156
  *                 if memcmp(_p, _b, self.pattern_size-1) == 0:
  *                     poslist.append(self.rel_pos)
  *             assert c>=0 and c<=255             # <<<<<<<<<<<<<<
@@ -2240,12 +2213,12 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
       __pyx_L13_bool_binop_done:;
       if (unlikely(!__pyx_t_2)) {
         PyErr_SetNone(PyExc_AssertionError);
-        __PYX_ERR(0, 155, __pyx_L1_error)
+        __PYX_ERR(0, 156, __pyx_L1_error)
       }
     }
     #endif
 
-    /* "icc/bufsearch/raita.pyx":156
+    /* "icc/bufsearch/raita.pyx":157
  *                     poslist.append(self.rel_pos)
  *             assert c>=0 and c<=255
  *             self.rel_pos+=self.bmBc[c]             # <<<<<<<<<<<<<<
@@ -2255,7 +2228,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
     __pyx_v_self->rel_pos = (__pyx_v_self->rel_pos + (__pyx_v_self->bmBc[__pyx_v_c]));
   }
 
-  /* "icc/bufsearch/raita.pyx":159
+  /* "icc/bufsearch/raita.pyx":160
  * 
  *         # Here self.rel_pos > buflen - self.pattern_size
  *         self.rel_pos -= buflen             # <<<<<<<<<<<<<<
@@ -2264,18 +2237,18 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
   __pyx_v_self->rel_pos = (__pyx_v_self->rel_pos - __pyx_v_buflen);
 
-  /* "icc/bufsearch/raita.pyx":160
+  /* "icc/bufsearch/raita.pyx":161
  *         # Here self.rel_pos > buflen - self.pattern_size
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:             # <<<<<<<<<<<<<<
  *             return None, "not found"
  *         return poslist, "found"
  */
-  __pyx_t_3 = PyList_GET_SIZE(__pyx_v_poslist); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_3 = PyList_GET_SIZE(__pyx_v_poslist); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 161, __pyx_L1_error)
   __pyx_t_2 = ((__pyx_t_3 == 0) != 0);
   if (__pyx_t_2) {
 
-    /* "icc/bufsearch/raita.pyx":161
+    /* "icc/bufsearch/raita.pyx":162
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:
  *             return None, "not found"             # <<<<<<<<<<<<<<
@@ -2287,7 +2260,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
     __pyx_r = __pyx_tuple__7;
     goto __pyx_L0;
 
-    /* "icc/bufsearch/raita.pyx":160
+    /* "icc/bufsearch/raita.pyx":161
  *         # Here self.rel_pos > buflen - self.pattern_size
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:             # <<<<<<<<<<<<<<
@@ -2296,7 +2269,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  */
   }
 
-  /* "icc/bufsearch/raita.pyx":162
+  /* "icc/bufsearch/raita.pyx":163
  *         if len(poslist)==0:
  *             return None, "not found"
  *         return poslist, "found"             # <<<<<<<<<<<<<<
@@ -2304,7 +2277,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_poslist);
   __Pyx_GIVEREF(__pyx_v_poslist);
@@ -2316,7 +2289,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "icc/bufsearch/raita.pyx":121
+  /* "icc/bufsearch/raita.pyx":122
  *         self.rel_pos=0
  * 
  *     def search(self, buffer):             # <<<<<<<<<<<<<<
@@ -2336,7 +2309,7 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_10search(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "icc/bufsearch/raita.pyx":165
+/* "icc/bufsearch/raita.pyx":166
  * 
  *     @property
  *     def relative(self):             # <<<<<<<<<<<<<<
@@ -2362,19 +2335,19 @@ static PyObject *__pyx_pf_3icc_9bufsearch_5raita_5Raita_8relative___get__(struct
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "icc/bufsearch/raita.pyx":166
+  /* "icc/bufsearch/raita.pyx":167
  *     @property
  *     def relative(self):
  *         return self.rel_pos             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->rel_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->rel_pos); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "icc/bufsearch/raita.pyx":165
+  /* "icc/bufsearch/raita.pyx":166
  * 
  *     @property
  *     def relative(self):             # <<<<<<<<<<<<<<
@@ -2530,19 +2503,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_argument_must_be_a_buffer_of_byt, __pyx_k_argument_must_be_a_buffer_of_byt, sizeof(__pyx_k_argument_must_be_a_buffer_of_byt), 0, 0, 1, 0},
   {&__pyx_kp_s_argument_must_be_a_bytes_object, __pyx_k_argument_must_be_a_bytes_object, sizeof(__pyx_k_argument_must_be_a_bytes_object), 0, 0, 1, 0},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
-  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_found, __pyx_k_found, sizeof(__pyx_k_found), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_multibuffer, __pyx_k_multibuffer, sizeof(__pyx_k_multibuffer), 0, 0, 1, 1},
   {&__pyx_kp_s_not_found, __pyx_k_not_found, sizeof(__pyx_k_not_found), 0, 0, 1, 0},
   {&__pyx_n_s_pattern, __pyx_k_pattern, sizeof(__pyx_k_pattern), 0, 0, 1, 1},
   {&__pyx_kp_s_pattern_is_empty, __pyx_k_pattern_is_empty, sizeof(__pyx_k_pattern_is_empty), 0, 0, 1, 0},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_reset, __pyx_k_reset, sizeof(__pyx_k_reset), 0, 0, 1, 1},
-  {&__pyx_kp_s_reset_2, __pyx_k_reset_2, sizeof(__pyx_k_reset_2), 0, 0, 1, 0},
   {&__pyx_n_s_set_pattern, __pyx_k_set_pattern, sizeof(__pyx_k_set_pattern), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
@@ -2571,7 +2540,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple_);
 
   /* "icc/bufsearch/raita.pyx":104
- *             s = PyBytes_AsString(value)
+ *             s = <unsigned char *>PyBytes_AsString(value)
  *         else:
  *             raise ValueError("argument must be a bytes object")             # <<<<<<<<<<<<<<
  *         if size==0:
@@ -2592,36 +2561,36 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "icc/bufsearch/raita.pyx":129
+  /* "icc/bufsearch/raita.pyx":130
  * 
  *         if type(buffer)!=type(b""):
  *             raise ValueError("argument must be a buffer of bytes")             # <<<<<<<<<<<<<<
  * 
  *         buflen=len(buffer)
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_argument_must_be_a_buffer_of_byt); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_argument_must_be_a_buffer_of_byt); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "icc/bufsearch/raita.pyx":134
+  /* "icc/bufsearch/raita.pyx":135
  * 
  *         if buflen == 0:
  *             return None, "empty"             # <<<<<<<<<<<<<<
  * 
  *         poslist=[]
  */
-  __pyx_tuple__6 = PyTuple_Pack(2, Py_None, __pyx_n_s_empty); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(2, Py_None, __pyx_n_s_empty); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "icc/bufsearch/raita.pyx":161
+  /* "icc/bufsearch/raita.pyx":162
  *         self.rel_pos -= buflen
  *         if len(poslist)==0:
  *             return None, "not found"             # <<<<<<<<<<<<<<
  *         return poslist, "found"
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(2, Py_None, __pyx_kp_s_not_found); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(2, Py_None, __pyx_kp_s_not_found); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
   __Pyx_RefNannyFinishContext();
@@ -3500,112 +3469,6 @@ bad:
     }
 }
 
-/* Print */
-      #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static PyObject *__Pyx_GetStdout(void) {
-    PyObject *f = PySys_GetObject((char *)"stdout");
-    if (!f) {
-        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-    }
-    return f;
-}
-static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
-    int i;
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
-        PyObject* v;
-        if (PyFile_SoftSpace(f, 1)) {
-            if (PyFile_WriteString(" ", f) < 0)
-                goto error;
-        }
-        v = PyTuple_GET_ITEM(arg_tuple, i);
-        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
-            goto error;
-        if (PyString_Check(v)) {
-            char *s = PyString_AsString(v);
-            Py_ssize_t len = PyString_Size(v);
-            if (len > 0) {
-                switch (s[len-1]) {
-                    case ' ': break;
-                    case '\f': case '\r': case '\n': case '\t': case '\v':
-                        PyFile_SoftSpace(f, 0);
-                        break;
-                    default:  break;
-                }
-            }
-        }
-    }
-    if (newline) {
-        if (PyFile_WriteString("\n", f) < 0)
-            goto error;
-        PyFile_SoftSpace(f, 0);
-    }
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-}
-#else
-static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
-    PyObject* kwargs = 0;
-    PyObject* result = 0;
-    PyObject* end_string;
-    if (unlikely(!__pyx_print)) {
-        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
-        if (!__pyx_print)
-            return -1;
-    }
-    if (stream) {
-        kwargs = PyDict_New();
-        if (unlikely(!kwargs))
-            return -1;
-        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
-            goto bad;
-        if (!newline) {
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                goto bad;
-            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                goto bad;
-            }
-            Py_DECREF(end_string);
-        }
-    } else if (!newline) {
-        if (unlikely(!__pyx_print_kwargs)) {
-            __pyx_print_kwargs = PyDict_New();
-            if (unlikely(!__pyx_print_kwargs))
-                return -1;
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                return -1;
-            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                return -1;
-            }
-            Py_DECREF(end_string);
-        }
-        kwargs = __pyx_print_kwargs;
-    }
-    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
-    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
-        Py_DECREF(kwargs);
-    if (!result)
-        return -1;
-    Py_DECREF(result);
-    return 0;
-bad:
-    if (kwargs != __pyx_print_kwargs)
-        Py_XDECREF(kwargs);
-    return -1;
-}
-#endif
-
 /* CIntFromPy */
       static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *x) {
     const unsigned int neg_one = (unsigned int) -1, const_zero = (unsigned int) 0;
@@ -3790,43 +3653,6 @@ raise_neg_overflow:
         "can't convert negative value to unsigned int");
     return (unsigned int) -1;
 }
-
-/* PrintOne */
-      #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
 
 /* CIntToPy */
       static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {

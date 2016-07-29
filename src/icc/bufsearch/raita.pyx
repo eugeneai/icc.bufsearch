@@ -48,11 +48,11 @@ cdef class Raita:
     """
     cdef unsigned int bmBc[256]
     cdef unsigned int rel_pos
-    cdef int middle_pos
+    cdef unsigned int middle_pos
     cdef unsigned char first_char
     cdef unsigned char last_char
     cdef unsigned char middle_char
-    cdef char * pattern
+    cdef unsigned char * pattern
     cdef unsigned int multibuffer
     cdef unsigned int pattern_size
 
@@ -69,7 +69,7 @@ cdef class Raita:
         self.reset()
 
     cdef preBmBc(self):
-        cdef char * bytes
+        cdef unsigned char * bytes
         cdef unsigned int size
         cdef unsigned int size1
         cdef unsigned int b[256]
@@ -92,27 +92,28 @@ cdef class Raita:
         self.middle_char=bytes[self.middle_pos]
 
     cpdef set_pattern(self, value):
-        cdef char * s
+        cdef unsigned char * s
         cdef unsigned int size
         #if type(value) == type(u""):
         #    size = unicode
         #    self._pattern=_s(value)
         if type(value) == type(b""):
             self.pattern_size = size = PyBytes_Size(value)
-            s = PyBytes_AsString(value)
+            s = <unsigned char *>PyBytes_AsString(value)
         else:
             raise ValueError("argument must be a bytes object")
         if size==0:
             raise ValueError("pattern is empty")
         if self.pattern != NULL:
             PyMem_RawFree(self.pattern)
-        self.pattern=<char *>PyMem_RawMalloc(size)
+            self.pattern=NULL
+        self.pattern=<unsigned char *>PyMem_RawMalloc(size)
         memcpy(self.pattern, s, size)
         self.preBmBc()
 
     def __dealloc__(self):
         if self.pattern!=NULL:
-            PyMem_RawFree(self.pattern)
+            #PyMem_RawFree(self.pattern)
             self.pattern=NULL
 
     cpdef reset(self):
@@ -121,9 +122,9 @@ cdef class Raita:
     def search(self, buffer):
         cdef unsigned int buflen
         cdef unsigned char c;
-        cdef char * buf
-        cdef char * _p
-        cdef char * _b
+        cdef unsigned char * buf
+        cdef unsigned char * _p
+        cdef unsigned char * _b
 
         if type(buffer)!=type(b""):
             raise ValueError("argument must be a buffer of bytes")
@@ -136,10 +137,10 @@ cdef class Raita:
         poslist=[]
 
         if not self.multibuffer:
-            print("reset!")
             self.reset()
+
         assert self.rel_pos==0
-        buf = PyBytes_AsString(buffer)
+        buf = <unsigned char *>PyBytes_AsString(buffer)
         # while (self.rel_pos <= buflen-self.pattern_size):
         _p = self.pattern + 1;
         # c_raise(SIGINT)
