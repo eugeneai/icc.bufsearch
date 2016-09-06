@@ -3,6 +3,8 @@
 import os
 import binascii as ba
 import icc.bufsearch as bs
+import io
+import zipfile
 import logging
 logging.basicConfig(filename='recovery.log',level=logging.INFO)
 logging.info('Start logging the result!')
@@ -20,9 +22,9 @@ EXCEPT=(
 
 DEV="/dev/sda2"
 TIMES=10
-
-PATTERNS=["d0cf11e0a1b11ae1",]
-
+# D0 CF 11 E0 A1 B1 1A E1
+PATTERNS=["d0cf11e0a1b11ae1",'504B030414000600','504B0304']
+WHAT=["DOC","DOCX-2007","DOCX"]
 
 
 PREFIXES=[ba.unhexlify(pt) for pt in PATTERNS]
@@ -43,12 +45,14 @@ PATTERN2=[ucslike(p) for p in PATTERN]
 PREFIXES.append(HEADER)
 PREFIXES.append(HEADER2)
 
-HEADERS=[HEADER,HEADER2]
+#HEADERS=[HEADER,HEADER2]
+HEADERS=[]
 
 
 headers=[bs.Raita(p) for p in HEADERS]
 
-PATTERNS = [PREFIXES[0]]+PATTERN+PATTERN2
+#PATTERNS = [PREFIXES[0]] # +PATTERN+PATTERN2
+PATTERNS=PREFIXES
 prefs=[bs.Raita(p) for p in PATTERNS]
 
 def scan_reader(file, start_blk, blk_size, blocks, count=None):
@@ -59,7 +63,11 @@ def scan_reader(file, start_blk, blk_size, blocks, count=None):
         if count == 0:
             break
         if len(queue)==0:
-            buffer=file.read(blk_size*blocks)
+            try:
+                buffer=file.read(blk_size*blocks)
+            except OSError:
+                print ("SKIP BAD")
+                continue
             cnt=len(buffer)
             if cnt==0:
                 break
@@ -86,7 +94,7 @@ def scan_hdd(dev):
     msteps=1
     step=0
 
-    start_blk=700000
+    start_blk=0
 
     for num, block in scan_reader(input, start_blk=start_blk, blk_size=blk_size, blocks=10, count=None):
         if step % msteps == 0:
@@ -94,11 +102,18 @@ def scan_hdd(dev):
                    end="\r")
             step = msteps-1
 
-        for e in headers:
+        for idx, e in enumerate(prefs):
             rc, reason=e.search(block, count=1)
             if rc:
-                # print ("\n>> Found HEADER at {} block {}".format(num*blk_size, num))
-                # print ("Header at: {}", rc[0])
+                W = WHAT[idx]
+                print ("\n>> Found HEADER at {} block {}".format(num*blk_size, num))
+                print ("Header {} at: {}".format(W, rc[0]), end='  ')
+                if W.startswith("DOCX"):
+                    tryloadzip(block, rc)
+                else:
+                    print()
+
+            if 0:
                 prrcs=[p.search(block, count=1)[0] for p in prefs]
                 # if not None in prrcs:
                 if 1:
@@ -170,6 +185,32 @@ def undel_ntfs():
         # if TIMES==0:
         #   break
 
+def tryloadzip(block, positions, length=100):
+    for i, pos in enumerate(positions):
+        buf = block[pos:]
+        s = io.BytesIO(buf)
+        failed = False
+        try:
+            z = zipfile.ZipFile(s, "r")
+        except zipfile.BadZipFile:
+            failed=True
+        except ValueError:
+            failed=True
+        if failed:
+            print (i," BAD ", end="")
+            continue
+        print (i," GOOD ", end="")
+        try:
+            z.testzip()
+        except ValueError:
+            print (" TEST FAILED ")
+            continue
+        print (" TEST OK ", end="")
+        z.printdir()
+    print()
+
+
+
 if __name__=="__main__":
-    scan_hdd("/dev/sdd")
+    scan_hdd("/dev/sdb3")
     quit()
