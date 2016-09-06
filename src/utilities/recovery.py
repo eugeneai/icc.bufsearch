@@ -94,7 +94,7 @@ def scan_hdd(dev):
     msteps=1
     step=0
 
-    start_blk=0
+    start_blk=919218
 
     for num, block in scan_reader(input, start_blk=start_blk, blk_size=blk_size, blocks=10, count=None):
         if step % msteps == 0:
@@ -196,15 +196,23 @@ def tryloadzip(block, positions, length=100):
             failed=True
         except ValueError:
             failed=True
+        except RuntimeError:
+            failed=True
         if failed:
             print (i," BAD ", end="")
             continue
         print (i," GOOD ", end="")
+        failed=False
         try:
             z.testzip()
         except ValueError:
+            failed=True
+        except RuntimeError:
+            failed=True
+        if failed:
             print (" TEST FAILED ")
             continue
+
         print (" TEST OK ", end="")
         z.printdir()
     print()
