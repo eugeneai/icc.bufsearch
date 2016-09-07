@@ -6,7 +6,7 @@ import icc.bufsearch as bs # ;-)
 import pkg_resources
 
 def res(filename):
-    return pkg_resources.resource_filename("icc.bufsearch", "../../tests/"+filename)
+    return pkg_resources.resource_filename("icc.bufsearch", "../../tests/data/"+filename)
 
 PATTERN = b"pattern"
 PATTERN2 = b"abddb"
@@ -63,7 +63,7 @@ class test_engine_multibuffer:
 DOC = "d0cf11e0a1b11ae1"
 DOC_PREFIX=ba.unhexlify(DOC)
 
-files=["Cherkashina_25.07.doc","2.doc","Cherkashina.doc"]
+files=["f1_25.07.doc","f2.doc","f1.doc"]
 
 HEADER=b"Multielemental analysis of rocks with high calcium content by X-ray fluorescence spectrometry for environmental"
 

@@ -8,9 +8,9 @@
 
 #A virtualenv name
 LPYTHON=python3
-V=/root/python3
-VB=$(V)/bin
-PYTHON=$(VB)/$(LPYTHON)
+#V=/root/python3
+#VB=$(V)/bin
+PYTHON=$(LPYTHON)
 #PYTHON=python
 #ROOT=$(PWD)
 #INI=icc.bufsearch
@@ -20,12 +20,12 @@ PYTHON=$(VB)/$(LPYTHON)
 #LG_LIB_DIR=$(TOP_DIR)/$(LG_DIR)/.libs
 #LG_HEADERS=$(TOP_DIR)
 
-env:
-	[ -d $(V) ] || virtualenv  $(V)
-	$(VB)/easy_install --upgrade pip
+#env:
+#	[ -d $(V) ] || virtualenv  $(V)
+#	$(VB)/easy_install --upgrade pip
 
 pre-dev: env #dev-....
-	$(VB)/easy_install pip setuptools
+	easy_install pip setuptools
 
 setup:
 	$(PYTHON) setup.py build_ext # -L$(LG_LIB_DIR) -R$(LG_LIB_DIR) -I$(LG_HEADERS)
