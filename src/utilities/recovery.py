@@ -5,6 +5,7 @@ import binascii as ba
 import icc.bufsearch as bs
 import io
 import zipfile
+import olefile
 import logging
 logging.basicConfig(filename='recovery.log',level=logging.INFO)
 logging.info('Start logging the result!')
@@ -110,6 +111,8 @@ def scan_hdd(dev):
                 print ("Header {} at: {}".format(W, rc[0]), end='  ')
                 if W.startswith("DOCX"):
                     tryloadzip(block, rc)
+                elif W=="DOC":
+                    tryloadole(block, rc)
                 else:
                     print()
 
@@ -185,10 +188,13 @@ def undel_ntfs():
         # if TIMES==0:
         #   break
 
-def tryloadzip(block, positions, length=100):
+def streams(block, positions):
     for i, pos in enumerate(positions):
-        buf = block[pos:]
-        s = io.BytesIO(buf)
+        buf=block[pos:]
+        yield io.BytesIO(buf), i
+
+def tryloadzip(block, positions, length=100):
+    for s, i in streams(block, positions):
         failed = False
         try:
             z = zipfile.ZipFile(s, "r")
@@ -215,8 +221,21 @@ def tryloadzip(block, positions, length=100):
 
         print (" TEST OK ", end="")
         z.printdir()
+        print ("POS:", s.tell())
     print()
 
+def tryloadole(block, positions):
+    for s, i in streams(block, positions):
+        if not olefile.isOleFile(s):
+            print (" NOT an OLE ", end="")
+            continue
+        try:
+            ole = olefile.OleFileIO(s)
+        except OSError:
+            print (" BAD OLE ")
+            continue
+        print (ole.listdir())
+        print ("POS:", s.tell())
 
 
 if __name__=="__main__":
