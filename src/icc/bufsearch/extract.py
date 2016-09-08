@@ -17,8 +17,8 @@ TEMPLATES = {
 
 STREAMMAP = {"WordDocument": "doc"}
 
-ZIP_EDIR_SIGNATURE = b"\0x4b\0x50\0x05\0x06"
-ZIP_SIGNATURE = b"\0x4b\0x50\0x03\0x04"
+ZIP_EDIR_SIGNATURE = b"PK\x05\x06"
+ZIP_SIGNATURE = b"PK\x03\x04"
 R_ZIP_EDIR_SIGNATURE = Raita(ZIP_EDIR_SIGNATURE)
 ZIP_ADD = 18  # bytes
 
@@ -71,7 +71,8 @@ def extract_zip(buffer, pos, pattern=None):
         return rc
     start_sig = buffer[pos:pos + 4]
     if start_sig != ZIP_SIGNATURE:
-        raise ValueError("no start signatore")
+        print(repr(start_sig), ZIP_SIGNATURE)
+        raise ValueError("no start signatore found")
     ps, _ = R_ZIP_EDIR_SIGNATURE.search(
         buffer, start=pos + len(ZIP_SIGNATURE), count=1)
     if ps is None:

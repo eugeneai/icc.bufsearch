@@ -2,7 +2,7 @@ from nose.tools import *
 import binascii as ba
 
 import icc.bufsearch as bs  # ;-)
-from icc.bufsearch.extract import extract_ole
+from icc.bufsearch.extract import extract_ole, extract_zip
 import os
 import pkg_resources
 import olefile
@@ -11,6 +11,10 @@ import olefile
 def res(filename):
     return pkg_resources.resource_filename("icc.bufsearch",
                                            "../../tests/data/" + filename)
+def resource(filename):
+    return pkg_resources.resource_filename("icc.bufsearch",
+                                           "../data/" + filename)
+
 
 
 PATTERN = b"pattern"
@@ -69,6 +73,7 @@ class test_engine_multibuffer:
 
 DOC = "d0cf11e0a1b11ae1"
 DOC_PREFIX = ba.unhexlify(DOC)
+DOCX_PREFIX = ba.unhexlify('504B0304')
 
 files = ["f1_25.07.doc", "f2.doc", "f1.doc"]
 
@@ -169,12 +174,16 @@ RAND_SIZE = 40000
 class TestCaseFinding:
     def setUp(self):
         self.name = res(files[0])
+        self.zipname = resource("template.zip")
         self.buffer = [0, 0]
         self.buffer[0] = os.urandom(RAND_SIZE) + b"\0x1"
         self.buffer[1] = os.urandom(RAND_SIZE) + b"\0x2"
         self.content = open(self.name, "rb").read()
-        self.obfusc = self.buffer[0] + self.content + self.buffer[1]
-        self.raita = bs.Raita(DOC_PREFIX, multibuffer=False)
+
+        self.zipcontent = open(self.zipname, "rb").read()
+        self.obfusc = self.buffer[0] + self.content + self.buffer[1]+self.zipcontent+self.buffer[0]
+        self.raita_doc = bs.Raita(DOC_PREFIX, multibuffer=False)
+        self.raita_docx = bs.Raita(DOCX_PREFIX, multibuffer=False)
 
     def tearDown(self):
         pass
@@ -182,9 +191,18 @@ class TestCaseFinding:
     def test_stub(self):
         assert self.buffer[0] != self.buffer[1]
 
-    def test_search(self):
-        rc, _ = self.raita.search(self.obfusc)
+    # def test_search(self):
+    #     rc, _ = self.raita_doc.search(self.obfusc)
+    #     offs = rc[0]
+    #     assert offs == len(self.buffer[0])
+    #     buf = extract_ole(self.obfusc, rc)
+    #     assert len(buf[0]) > 0
+
+    def test_zip_extract(self):
+        rc, _ = self.raita_docx.search(self.obfusc)
+        assert rc is not None, "possibly wrong data"
         offs = rc[0]
-        assert offs == len(self.buffer[0])
-        buf = extract_ole(self.obfusc, rc)
-        assert len(buf[0]) > 0
+        assert offs<len(self.obfusc) and offs>0
+        buf=extract_zip(self.obfusc, rc)
+        assert buf is not None
+        assert len(buf[0])>0, buf == self.zipcontent
