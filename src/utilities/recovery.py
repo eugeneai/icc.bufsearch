@@ -9,6 +9,7 @@ import olefile
 import logging
 logging.basicConfig(filename='recovery.log',level=logging.INFO)
 logging.info('Start logging the result!')
+from icc.bufsearch.extract import extract_zip
 
 EXCEPT=(
         ".vault",
@@ -84,7 +85,7 @@ def scan_reader(file, start_blk, blk_size, blocks, count=None):
 
 def scan_hdd(dev):
     # blk_size=16384 # default block size
-    blk_size=512*64 # 4096 # default block size
+    blk_size=512*64*1024 # 4096 # default block size
     input = open(dev, "rb")
     input.seek(0, os.SEEK_END)
     size=input.tell()
@@ -96,8 +97,9 @@ def scan_hdd(dev):
     msteps=1
     step=0
 
-    start_blk=919218
+    start_blk=0
 
+    prefix = dev.replace('/','-')
     for num, block in scan_reader(input, start_blk=start_blk, blk_size=blk_size, blocks=10, count=None):
         if step % msteps == 0:
             print ("Block {} of {} = {:.5%}.".format(num, blocks, num/blocks),
@@ -111,9 +113,10 @@ def scan_hdd(dev):
                 print ("\n>> Found HEADER at {} block {}".format(num*blk_size, num))
                 print ("Header {} at: {}".format(W, rc[0]), end='  ')
                 if W.startswith("DOCX"):
-                    tryloadzip(block, rc)
+                    tryloadzip(block, rc, prefix, num)
                 elif W=="DOC":
-                    tryloadole(block, rc)
+                    # tryloadole(block, rc)
+                    print (" SKIPPPED ")
                 else:
                     print()
 
@@ -194,8 +197,14 @@ def streams(block, positions):
         buf=block[pos:]
         yield io.BytesIO(buf), i
 
-def tryloadzip(block, positions, length=100):
-    for s, i in streams(block, positions):
+def tryloadzip(block, positions, prefix='ZZZ', num=0):
+    for i, p in enumerate(positions):
+        try:
+            buf = extract_zip(block, p)
+        except RuntimeError:
+            print (" COULDNT EXTRACT DATA ")
+            continue
+        s = io.BytesIO(buf)
         failed = False
         try:
             z = zipfile.ZipFile(s, "r")
@@ -222,7 +231,8 @@ def tryloadzip(block, positions, length=100):
 
         print (" TEST OK ", end="")
         z.printdir()
-        print ("POS:", s.tell())
+        name=("{}-{}-{}-{}.docx".format(prefix, i, num, p))
+        print ("File:", name)
     print()
 
 def tryloadole(block, positions):
