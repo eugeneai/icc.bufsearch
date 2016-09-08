@@ -22,6 +22,8 @@ EXCEPT=(
         # ".vault",
         )
 
+STORAGE="./storage/NATA/"
+
 DEV="/dev/sda2"
 TIMES=10
 # D0 CF 11 E0 A1 B1 1A E1
@@ -97,7 +99,7 @@ def scan_hdd(dev):
     msteps=1
     step=0
 
-    start_blk=0
+    start_blk=340
 
     prefix = dev.replace('/','-')
     for num, block in scan_reader(input, start_blk=start_blk, blk_size=blk_size, blocks=10, count=None):
@@ -225,6 +227,8 @@ def tryloadzip(block, positions, prefix='ZZZ', num=0):
             failed=True
         except RuntimeError:
             failed=True
+        except:
+            failed=True
         if failed:
             print (" TEST FAILED ")
             continue
@@ -232,7 +236,13 @@ def tryloadzip(block, positions, prefix='ZZZ', num=0):
         print (" TEST OK ", end="")
         z.printdir()
         name=("{}-{}-{}-{}.docx".format(prefix, i, num, p))
-        print ("File:", name)
+        filepathname=os.path.join(STORAGE, name)
+        print ("File:", filepathname)
+        ofile = open(filepathname, "wb")
+        ofile.write(buf)
+        ofile.flush()
+        ofile.close()
+        #quit()
     print()
 
 def tryloadole(block, positions):

@@ -174,7 +174,8 @@ RAND_SIZE = 40000
 class TestCaseFinding:
     def setUp(self):
         self.name = res(files[0])
-        self.zipname = resource("template.zip")
+        #self.zipname = resource("template.zip")
+        self.zipname = resource("template.docx")
         self.buffer = [0, 0]
         self.buffer[0] = os.urandom(RAND_SIZE) + b"\0x1"
         self.buffer[1] = os.urandom(RAND_SIZE) + b"\0x2"
@@ -205,4 +206,6 @@ class TestCaseFinding:
         assert offs<len(self.obfusc) and offs>0
         buf=extract_zip(self.obfusc, rc)
         assert buf is not None
-        assert len(buf[0])>0, buf == self.zipcontent
+        assert len(buf[0])>0
+        print (len(buf[0]), len(self.zipcontent))
+        assert buf[0] == self.zipcontent

@@ -78,4 +78,4 @@ def extract_zip(buffer, pos, pattern=None):
     if ps is None:
         raise RuntimeError(_)
     epos=ps[0]+len(ZIP_EDIR_SIGNATURE)+ZIP_ADD
-    return buffer[pos:epos+1]
+    return buffer[pos:epos]
