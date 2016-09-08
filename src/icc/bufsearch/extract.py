@@ -1,6 +1,7 @@
 import olefile
 import io
 import pkg_resources
+from icc.bufsearch import Raita
 
 
 def resource(filename):
@@ -15,6 +16,11 @@ TEMPLATES = {
 }
 
 STREAMMAP = {"WordDocument": "doc"}
+
+ZIP_EDIR_SIGNATURE = b"\0x4b\0x50\0x05\0x06"
+ZIP_SIGNATURE = b"\0x4b\0x50\0x03\0x04"
+R_ZIP_EDIR_SIGNATURE = Raita(ZIP_EDIR_SIGNATURE)
+ZIP_ADD = 18  # bytes
 
 
 def extract_ole(buffer, pos, pattern=None):
@@ -34,14 +40,14 @@ def extract_ole(buffer, pos, pattern=None):
     listdir = olei.listdir()
     print(listdir)
     for k, ext in STREAMMAP.items():
-        print (k)
+        print(k)
         if [k] in listdir:
             break
     else:
         raise RuntimeError("format is not supported yet")
     template = TEMPLATES[ext]
     if pattern is None:
-        _data = open(resource(template),"rb").read()
+        _data = open(resource(template), "rb").read()
         o = io.BytesIO(_data)
     else:
         # TODO Copy template at first
@@ -55,3 +61,20 @@ def extract_ole(buffer, pos, pattern=None):
     oleo.close()
     if pattern is None:
         return oleo.getbuffer()
+
+
+def extract_zip(buffer, pos, pattern=None):
+    if type(pos) in [list, tuple]:
+        rc = []
+        for p in pos:
+            rc.append(extract_zip(buffer, p, pattern=pattern))
+        return rc
+    start_sig = buffer[pos:pos + 4]
+    if start_sig != ZIP_SIGNATURE:
+        raise ValueError("no start signatore")
+    ps, _ = R_ZIP_EDIR_SIGNATURE.search(
+        buffer, start=pos + len(ZIP_SIGNATURE), count=1)
+    if ps is None:
+        raise RuntimeError(_)
+    epos=ps[0]+len(ZIP_EDIR_SIGNATURE)+ZIP_ADD
+    return buffer[pos:epos+1]

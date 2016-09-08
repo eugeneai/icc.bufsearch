@@ -116,10 +116,10 @@ cdef class Raita:
             #PyMem_RawFree(self.pattern)
             self.pattern=NULL
 
-    cpdef reset(self):
-        self.rel_pos=0
+    cpdef reset(self, pos=0):
+        self.rel_pos=pos
 
-    def search(self, buffer, count=None):
+    def search(self, buffer, start=0, count=None):
         cdef unsigned int buflen
         cdef unsigned char c;
         cdef unsigned char * buf
@@ -137,7 +137,7 @@ cdef class Raita:
         poslist=[]
 
         if not self.multibuffer:
-            self.reset()
+            self.reset(start)
 
         assert self.rel_pos==0
         buf = <unsigned char *>PyBytes_AsString(buffer)
