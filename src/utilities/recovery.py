@@ -9,6 +9,7 @@ import olefile
 import logging
 logging.basicConfig(filename='recovery.log',level=logging.INFO)
 logging.info('Start logging the result!')
+from icc.bufsearch.extract import extract_zip
 
 EXCEPT=(
         ".vault",
@@ -21,11 +22,14 @@ EXCEPT=(
         # ".vault",
         )
 
+STORAGE="./storage/NATA/"
+
 DEV="/dev/sda2"
 TIMES=10
 # D0 CF 11 E0 A1 B1 1A E1
 PATTERNS=["d0cf11e0a1b11ae1",'504B030414000600','504B0304']
 WHAT=["DOC","DOCX-2007","DOCX"]
+ZIP_END_PATTERN=["504B0506"]
 
 
 PREFIXES=[ba.unhexlify(pt) for pt in PATTERNS]
@@ -83,7 +87,7 @@ def scan_reader(file, start_blk, blk_size, blocks, count=None):
 
 def scan_hdd(dev):
     # blk_size=16384 # default block size
-    blk_size=512*64 # 4096 # default block size
+    blk_size=512*64*1024 # 4096 # default block size
     input = open(dev, "rb")
     input.seek(0, os.SEEK_END)
     size=input.tell()
@@ -95,8 +99,9 @@ def scan_hdd(dev):
     msteps=1
     step=0
 
-    start_blk=919218
+    start_blk=0
 
+    prefix = dev.replace('/','-')
     for num, block in scan_reader(input, start_blk=start_blk, blk_size=blk_size, blocks=10, count=None):
         if step % msteps == 0:
             print ("Block {} of {} = {:.5%}.".format(num, blocks, num/blocks),
@@ -110,9 +115,10 @@ def scan_hdd(dev):
                 print ("\n>> Found HEADER at {} block {}".format(num*blk_size, num))
                 print ("Header {} at: {}".format(W, rc[0]), end='  ')
                 if W.startswith("DOCX"):
-                    tryloadzip(block, rc)
+                    tryloadzip(block, rc, prefix, num)
                 elif W=="DOC":
-                    tryloadole(block, rc)
+                    # tryloadole(block, rc)
+                    print (" SKIPPPED ")
                 else:
                     print()
 
@@ -193,8 +199,14 @@ def streams(block, positions):
         buf=block[pos:]
         yield io.BytesIO(buf), i
 
-def tryloadzip(block, positions, length=100):
-    for s, i in streams(block, positions):
+def tryloadzip(block, positions, prefix='ZZZ', num=0):
+    for i, p in enumerate(positions):
+        try:
+            buf = extract_zip(block, p)
+        except RuntimeError:
+            print (" COULDNT EXTRACT DATA ")
+            continue
+        s = io.BytesIO(buf)
         failed = False
         try:
             z = zipfile.ZipFile(s, "r")
@@ -215,13 +227,22 @@ def tryloadzip(block, positions, length=100):
             failed=True
         except RuntimeError:
             failed=True
+        except:
+            failed=True
         if failed:
             print (" TEST FAILED ")
             continue
 
         print (" TEST OK ", end="")
         z.printdir()
-        print ("POS:", s.tell())
+        name=("{}-{}-{}-{}.docx".format(prefix, i, num, p))
+        filepathname=os.path.join(STORAGE, name)
+        print ("File:", filepathname)
+        ofile = open(filepathname, "wb")
+        ofile.write(buf)
+        ofile.flush()
+        ofile.close()
+        #quit()
     print()
 
 def tryloadole(block, positions):
@@ -239,5 +260,5 @@ def tryloadole(block, positions):
 
 
 if __name__=="__main__":
-    scan_hdd("/dev/sdb3")
+    scan_hdd("/dev/sdb2")
     quit()

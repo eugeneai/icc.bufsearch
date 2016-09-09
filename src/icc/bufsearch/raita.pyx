@@ -138,8 +138,8 @@ cdef class Raita:
 
         if not self.multibuffer:
             self.reset(start)
+            assert self.rel_pos==start
 
-        assert self.rel_pos==0
         buf = <unsigned char *>PyBytes_AsString(buffer)
         # while (self.rel_pos <= buflen-self.pattern_size):
         _p = self.pattern + 1;
