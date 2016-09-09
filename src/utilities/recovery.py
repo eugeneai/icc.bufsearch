@@ -99,7 +99,7 @@ def scan_hdd(dev):
     msteps=1
     step=0
 
-    start_blk=340
+    start_blk=0
 
     prefix = dev.replace('/','-')
     for num, block in scan_reader(input, start_blk=start_blk, blk_size=blk_size, blocks=10, count=None):
@@ -260,5 +260,5 @@ def tryloadole(block, positions):
 
 
 if __name__=="__main__":
-    scan_hdd("/dev/sdb3")
+    scan_hdd("/dev/sdb2")
     quit()
